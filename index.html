@@ -1,29 +1,63 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>摄像头实时流</title>
+  <title>ESP32-CAM 实时流</title>
   <style>
-    body, html {
+    body {
+      background: black;
       margin: 0;
-      padding: 0;
-      background: #000;
-      height: 100%;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
+      justify-content: center;
+      height: 100vh;
+      color: white;
+      font-family: sans-serif;
     }
-    img, video {
+    #video-frame {
       max-width: 100%;
-      height: auto;
+      border: 2px solid #444;
+      border-radius: 10px;
+    }
+    #controls {
+      margin-top: 15px;
+    }
+    button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      background-color: #007bff;
+      color: white;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background-color: #0056b3;
     }
   </style>
 </head>
 <body>
-  <img src="http://172.20.10.4/mjpeg/1" alt="实时流" />
-  <!-- 或者用 video 标签，看浏览器支持情况：
-  <video src="http://172.20.10.4/mjpeg/1" autoplay muted playsinline></video>
-  -->
+  <h2>📡 ESP32-CAM 实时视频流</h2>
+  <img id="video-frame" src="http://172.20.10.4/mjpeg/1" alt="视频加载中...">
+
+  <div id="controls">
+    <button onclick="reloadStream()">🔄 刷新视频</button>
+  </div>
+
+  <script>
+    const videoFrame = document.getElementById('video-frame');
+    const streamURL = "http://172.20.10.4/mjpeg/1";
+
+    // 如果当前是 HTTPS 环境，提醒用户浏览器可能屏蔽 HTTP
+    if (location.protocol === 'https:') {
+      alert('⚠️ 当前页面是 HTTPS，浏览器可能阻止显示 HTTP 流。请直接访问：' + streamURL);
+    }
+
+    function reloadStream() {
+      videoFrame.src = streamURL + '?t=' + new Date().getTime();
+    }
+  </script>
 </body>
 </html>
