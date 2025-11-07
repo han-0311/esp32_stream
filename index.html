@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>摄像头实时流</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      background: #000;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    img, video {
+      max-width: 100%;
+      height: auto;
+    }
+  </style>
+</head>
+<body>
+  <img src="http://172.20.10.4/mjpeg/1" alt="实时流" />
+  <!-- 或者用 video 标签，看浏览器支持情况：
+  <video src="http://172.20.10.4/mjpeg/1" autoplay muted playsinline></video>
+  -->
+</body>
+</html>
